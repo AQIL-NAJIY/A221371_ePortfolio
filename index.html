@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student e-Portfolio | Mobile & Web Security</title>
+    <!-- Tailwind CSS for utility styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        dark: {
+                            bg: '#0b0f19',
+                            card: '#111827',
+                            border: '#1f2937',
+                            accent: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 12px 40px 0 rgba(2, 132, 199, 0.15);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #38bdf8;
+            transition: width 0.2s ease-in-out;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.75rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-dark-bg/80 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-sky-500 to-indigo-500 flex items-center justify-center font-bold text-white shadow-lg shadow-sky-500/20">
+                        eP
+                    </div>
+                    <span class="font-bold text-lg tracking-tight text-white">e-Portfolio <span class="text-sky-400 text-xs font-semibold px-2 py-0.5 rounded-full bg-sky-950/60 border border-sky-800/50">2026</span></span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+                    <a href="#home" class="nav-link hover:text-white">Home</a>
+                    <a href="#labs" class="nav-link hover:text-white">Labs</a>
+                    <a href="#projects" class="nav-link hover:text-white">Projects</a>
+                    <a href="#reflection" class="nav-link hover:text-white">Reflection</a>
+                    <a href="#skills" class="nav-link hover:text-white">Skills</a>
+                    <a href="#resources" class="nav-link hover:text-white">Resources</a>
+                </nav>
+
+                <!-- Mobile Navigation Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" type="button" class="text-gray-400 hover:text-white focus:outline-none focus:text-white p-2">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-card border-b border-gray-800 px-4 pt-2 pb-4 space-y-2">
+            <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Home</a>
+            <a href="#labs" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Labs</a>
+            <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Projects</a>
+            <a href="#reflection" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Reflection</a>
+            <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Skills</a>
+            <a href="#resources" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Resources</a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <section id="home" class="py-16 md:py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20 mb-4">
+                        <i class="fa-solid fa-graduation-cap"></i> Student Software & Security Portfolio
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+                        KAWAN-KAWAN <span class="gradient-text">DANISH</span>
+                    </h1>
+                    <p class="text-gray-400 text-lg leading-relaxed">
+                        Welcome to our team's academic e-Portfolio. This page showcases our technical laboratory experiments, practical vulnerability fixes, full-stack Android/Web developments, and interactive project demos developed during the course.
+                    </p>
+
+                    <!-- Meta details badge row -->
+                    <div class="mt-8 flex flex-wrap justify-center gap-4 text-sm">
+                        <div class="bg-gray-900/80 border border-gray-800 rounded-lg px-4 py-2 text-gray-300 flex items-center gap-2">
+                            <i class="fa-solid fa-book-open text-sky-400"></i>
+                            <span class="font-semibold text-gray-400">Programme:</span>
+                            <span class="text-white">TTTN 3133</span>
+                        </div>
+                        <div class="bg-gray-900/80 border border-gray-800 rounded-lg px-4 py-2 text-gray-300 flex items-center gap-2">
+                            <i class="fa-solid fa-user-tie text-indigo-400"></i>
+                            <span class="font-semibold text-gray-400">Instructor:</span>
+                            <span class="text-white">DR. NURHANIS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group Members Matrix -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 text-white">
+                        <i class="fa-solid fa-users text-sky-400"></i> Group Members
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Member 1 -->
+                        <div class="glass-card rounded-2xl p-6 transition duration-300">
+                            <div class="w-12 h-12 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold text-lg mb-4 border border-sky-500/30">
+                                01
+                            </div>
+                            <h3 class="font-bold text-lg text-white mb-1">AQIL NAJIY BIN KAMARUL AZHAR</h3>
+                            <p class="text-xs text-sky-400 font-mono mb-3">Matric: A221371</p>
+                            <div class="border-t border-gray-800 pt-3 text-sm space-y-1">
+                                <p><strong class="text-gray-400">Role:</strong> <span class="text-gray-200">GROUP MEMBER</span></p>
+                                <p class="text-xs text-gray-400 mt-2 leading-snug"><strong class="text-gray-300">Contribution:</strong> [Contribution]</p>
+                            </div>
+                        </div>
+
+                        <!-- Member 2 -->
+                        <div class="glass-card rounded-2xl p-6 transition duration-300">
+                            <div class="w-12 h-12 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-lg mb-4 border border-indigo-500/30">
+                                02
+                            </div>
+                            <h3 class="font-bold text-lg text-white mb-1">DANISH ARIFFIN BIN KAMRUL ARIFFIN</h3>
+                            <p class="text-xs text-indigo-400 font-mono mb-3">Matric: A216732</p>
+                            <div class="border-t border-gray-800 pt-3 text-sm space-y-1">
+                                <p><strong class="text-gray-400">Role:</strong> <span class="text-gray-200">GROUP LEADER</span></p>
+                                <p class="text-xs text-gray-400 mt-2 leading-snug"><strong class="text-gray-300">Contribution:</strong> [Contribution]</p>
+                            </div>
+                        </div>
+
+                        <!-- Member 3 -->
+                        <div class="glass-card rounded-2xl p-6 transition duration-300">
+                            <div class="w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-lg mb-4 border border-purple-500/30">
+                                03
+                            </div>
+                            <h3 class="font-bold text-lg text-white mb-1">AHMAD IZZWAN BIN JAAFAR</h3>
+                            <p class="text-xs text-purple-400 font-mono mb-3">Matric: A216745</p>
+                            <div class="border-t border-gray-800 pt-3 text-sm space-y-1">
+                                <p><strong class="text-gray-400">Role:</strong> <span class="text-gray-200">GROUP MEMBER</span></p>
+                                <p class="text-xs text-gray-400 mt-2 leading-snug"><strong class="text-gray-300">Contribution:</strong> [Contribution]</p>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="labs" class="py-16 bg-gray-950/50 border-t border-b border-gray-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold text-white tracking-tight">Laboratory Work</h2>
+                        <p class="text-gray-400 text-sm mt-1">Practical hands-on lab exercises and video demonstrations</p>
+                    </div>
+                    <span class="hidden sm:block text-xs font-mono bg-gray-800 text-gray-400 px-3 py-1 rounded-md">3 Practical Labs</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Lab Card 1 -->
+                    <article class="glass-card rounded-2xl overflow-hidden flex flex-col transition">
+                        <div class="p-5 flex-grow">
+                            <span class="text-xs font-semibold text-sky-400 tracking-wider uppercase">Lab 01</span>
+                            <h3 class="text-xl font-bold text-white mt-1 mb-2">Android Security Baseline</h3>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Exploration of Android application sandboxing, permissions configuration, and local SQLite data storage encryption.
+                            </p>
+                            
+                            <!-- Video Embed Container -->
+                            <div class="relative w-full pt-[56.25%] mb-4 rounded-xl overflow-hidden bg-black/50 border border-gray-800">
+                                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Lab 1 Video Demonstration" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="bg-gray-900/60 rounded-xl p-3 border border-gray-800">
+                                <p class="text-xs font-semibold text-sky-400 mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-lightbulb"></i> Reflection:
+                                </p>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    Completing this lab provided critical insights into mobile application permission models and key storage techniques. We learned how improper permission settings expose sensitive app data to unauthorized applications. This foundation is essential for hardening modern enterprise mobile solutions.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Lab Card 2 -->
+                    <article class="glass-card rounded-2xl overflow-hidden flex flex-col transition">
+                        <div class="p-5 flex-grow">
+                            <span class="text-xs font-semibold text-indigo-400 tracking-wider uppercase">Lab 02</span>
+                            <h3 class="text-xl font-bold text-white mt-1 mb-2">Network Layer Security</h3>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Implementing SSL/TLS certificate pinning and secure REST API calls using Retrofit and OkHttp interceptors.
+                            </p>
+                            
+                            <!-- Video Embed Container -->
+                            <div class="relative w-full pt-[56.25%] mb-4 rounded-xl overflow-hidden bg-black/50 border border-gray-800">
+                                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Lab 2 Video Demonstration" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="bg-gray-900/60 rounded-xl p-3 border border-gray-800">
+                                <p class="text-xs font-semibold text-indigo-400 mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-lightbulb"></i> Reflection:
+                                </p>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    This exercise highlighted how vulnerable mobile traffic is to Man-in-the-Middle (MITM) attacks if SSL certificates are not pinned correctly. By inspecting raw network packets, we learned how to sanitize transit data effectively. Overall, it reinforced best practices for secure web-service communication.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Lab Card 3 -->
+                    <article class="glass-card rounded-2xl overflow-hidden flex flex-col transition">
+                        <div class="p-5 flex-grow">
+                            <span class="text-xs font-semibold text-purple-400 tracking-wider uppercase">Lab 03</span>
+                            <h3 class="text-xl font-bold text-white mt-1 mb-2">Cloud Integration & Auth</h3>
+                            <p class="text-gray-400 text-sm mb-4">
+                                Configuring Firebase Firestore security rules and OAuth authentication tokens for seamless multi-factor auth.
+                            </p>
+                            
+                            <!-- Video Embed Container -->
+                            <div class="relative w-full pt-[56.25%] mb-4 rounded-xl overflow-hidden bg-black/50 border border-gray-800">
+                                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Lab 3 Video Demonstration" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="bg-gray-900/60 rounded-xl p-3 border border-gray-800">
+                                <p class="text-xs font-semibold text-purple-400 mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-lightbulb"></i> Reflection:
+                                </p>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    Setting up Firebase rules allowed us to understand fine-grained access control in serverless backend architectures. We experienced firsthand how default permissive rules lead to backend database leaks. Writing strict rules ensured data integrity across all user roles.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12 border-b border-gray-800 pb-6">
+                    <span class="text-sky-400 font-semibold text-sm tracking-wider uppercase">Capstone Project</span>
+                    <h2 class="text-3xl font-extrabold text-white mt-1">Project Name: <span class="gradient-text">[NAME]</span></h2>
+                    <div class="mt-4 p-4 rounded-xl bg-gray-900/80 border border-gray-800">
+                        <h4 class="text-xs uppercase text-gray-400 font-bold tracking-wider mb-1">Problem Statement:</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            [1–2 SENTENCES: State the core problem or security flaw your project addresses, detailing why existing solutions fail and how your system remediates vulnerabilities.]
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-sky-400"></i> Vulnerability Solutions & Implementation Cases
+                </h3>
+
+                <!-- 6 Case Study Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Case 1: Login Test -->
+                    <article class="glass-card rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-rose-500/10 text-rose-400 text-xs font-bold border border-rose-500/20">Case 1</span>
+                                <span class="text-xs text-gray-400 font-mono">Authentication</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">Login Test Security</h4>
+                            <p class="text-xs text-gray-400 mb-4">Implementation of secure login authentication with rate-limiting and hashed credentials.</p>
+
+                            <div class="relative w-full pt-[56.25%] mb-4 rounded-xl overflow-hidden bg-black/50 border border-gray-800">
+                                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Case 1 Demonstration Video" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="bg-gray-900/60 rounded-xl p-3 border border-gray-800 mb-4">
+                                <p class="text-xs font-semibold text-rose-400 mb-1">Reflection:</p>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    [2–3 SENTENCES: Describe what was learned implementing Case 1, how authentication flaws were patched, and why salt-hashing algorithms prevent credential stuffing.]
+                                </p>
+                            </div>
+                        </div>
+
+                        <a href="[LINK]" target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold transition border border-gray-700 hover:border-gray-600">
+                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
+                        </a>
+                    </article>
+
+                    <!-- Case 2: Data 1 -->
+                    <article class="glass-card rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-400 text-xs font-bold border border-amber-500/20">Case 2</span>
+                                <span class="text-xs text-gray-400 font-mono">Data Validation</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">Data Protection (Data 1)</h4>
+                            <p class="text-xs text-gray-400 mb-4">Sanitizing user input fields and securing local Room database storage against unauthorized reads.</p>
+
+                            <div class="relative w-full pt-[56.25%] mb-4 rounded-xl overflow-hidden bg-black/50 border border-gray-800">
+                                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Case 2 Demonstration Video" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="bg-gray-900/60 rounded-xl p-3 border border-gray-800 mb-4">
+                                <p class="text-xs font-semibold text-amber-400 mb-1">Reflection:</p>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    [2–3 SENTENCES: Discuss how input sanitization prevented malformed data from corrupting state storage and how SQLCipher encrypts local Room DB schemas.]
+                                </p>
+                            </div>
+                        </div>
+
+                        <a href="[LINK]" target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold transition border border-gray-700 hover:border-gray-600">
+                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
+                        </a>
+                    </article>
+
+                    <!-- Case 3: Data 2 -->
+                    <article class="glass-card rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20">Case 3</span>
+                                <span class="text-xs text-gray-400 font-mono">API Encryption</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">Secure Payload (Data 2)</h4>
+                            <p class="text-xs text-gray-400 mb-4">AES-256 payload encryption during transit between Retrofit REST clients and remote backend services.</p>
+
+                            <div class="relative w-full pt-[56.25%] mb-4 rounded-xl overflow-hidden bg-black/50 border border-gray-800">
+                                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Case 3 Demonstration Video" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="bg-gray-900/60 rounded-xl p-3 border border-gray-800 mb-4">
+                                <p class="text-xs font-semibold text-emerald-400 mb-1">Reflection:</p>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    [2–3 SENTENCES: Explain payload encryption strategies, how key exchange was configured, and the performance impact on mobile request-response cycles.]
+                                </p>
+                            </div>
+                        </div>
+
+                        <a href="[LINK]" target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold transition border border-gray-700 hover:border-gray-600">
+                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
+                        </a>
+                    </article>
+
+                    <!-- Case 4: SQL Injection -->
+                    <article class="glass-card rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs font-bold border border-purple-500/20">Case 4</span>
+                                <span class="text-xs text-gray-400 font-mono">SQL Injection</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">SQL Injection Mitigation</h4>
+                            <p class="text-xs text-gray-400 mb-4">Refactoring dynamic raw queries into parameterized queries and Room ORM Dao statements.</p>
+
+                            <div class="relative w-full pt-[56.25%] mb-4 rounded-xl overflow-hidden bg-black/50 border border-gray-800">
+                                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Case 4 Demonstration Video" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="bg-gray-900/60 rounded-xl p-3 border border-gray-800 mb-4">
+                                <p class="text-xs font-semibold text-purple-400 mb-1">Reflection:</p>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    [2–3 SENTENCES: Reflect on demonstrating SQL injection vulnerabilities, replacing raw SQL string concatenations with bound parameters, and testing edge cases.]
+                                </p>
+                            </div>
+                        </div>
+
+                        <a href="[LINK]" target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold transition border border-gray-700 hover:border-gray-600">
+                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
+                        </a>
+                    </article>
+
+                    <!-- Case 5: Placeholder 1 -->
+                    <article class="glass-card rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-sky-500/10 text-sky-400 text-xs font-bold border border-sky-500/20">Case 5</span>
+                                <span class="text-xs text-gray-400 font-mono">Custom Module</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">CameraX ML Kit Scan</h4>
+                            <p class="text-xs text-gray-400 mb-4">Integrating CameraX pipeline with ML Kit for real-time document barcode scanning and validation.</p>
+
+                            <div class="relative w-full pt-[56.25%] mb-4 rounded-xl overflow-hidden bg-black/50 border border-gray-800">
+                                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Case 5 Demonstration Video" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="bg-gray-900/60 rounded-xl p-3 border border-gray-800 mb-4">
+                                <p class="text-xs font-semibold text-sky-400 mb-1">Reflection:</p>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    [2–3 SENTENCES: Describe working with camera permissions, machine learning model binding on mobile hardware, and handling real-time frame rates safely.]
+                                </p>
+                            </div>
+                        </div>
+
+                        <a href="[LINK]" target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold transition border border-gray-700 hover:border-gray-600">
+                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
+                        </a>
+                    </article>
+
+                    <!-- Case 6: Placeholder 2 -->
+                    <article class="glass-card rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-teal-500/10 text-teal-400 text-xs font-bold border border-teal-500/20">Case 6</span>
+                                <span class="text-xs text-gray-400 font-mono">Real-time Sync</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">Firestore Security Sync</h4>
+                            <p class="text-xs text-gray-400 mb-4">Securing real-time listener streams and token-refresh loops in Firebase Firestore backend.</p>
+
+                            <div class="relative w-full pt-[56.25%] mb-4 rounded-xl overflow-hidden bg-black/50 border border-gray-800">
+                                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Case 6 Demonstration Video" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="bg-gray-900/60 rounded-xl p-3 border border-gray-800 mb-4">
+                                <p class="text-xs font-semibold text-teal-400 mb-1">Reflection:</p>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    [2–3 SENTENCES: Detail experience configuring token auto-refresh mechanisms and guaranteeing safe real-time sync across connected mobile clients.]
+                                </p>
+                            </div>
+                        </div>
+
+                        <a href="[LINK]" target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold transition border border-gray-700 hover:border-gray-600">
+                            <i class="fa-brands fa-github text-sm"></i> View on GitHub
+                        </a>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="reflection" class="py-16 bg-gray-950/50 border-t border-b border-gray-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-lg font-bold border border-sky-500/30">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white">Reflection & Learning Journey</h2>
+                    </div>
+
+                    <div class="prose prose-invert max-w-none text-gray-300 leading-relaxed text-base space-y-4">
+                        <p class="bg-gray-900/50 border border-gray-800 rounded-2xl p-6">
+                            [REFLECTION & LEARNING JOURNEY: Throughout this course, our group gained hands-on experience identifying, exploiting, and systematically patching software vulnerabilities across modern mobile and web architectures. We navigated the full software lifecycle, from diagnosing SQL injections and raw data leaks to implementing parameterized queries, encrypted database ORMs, and secure network pins. Collaborating on complex codebase modules enhanced our problem-solving agility and reinforced the critical necessity of adopting a 'security-by-design' mindset in every modern engineering project.]
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <h2 class="text-3xl font-bold text-white">Skills & Tech Stack</h2>
+                    <p class="text-gray-400 text-sm mt-2">Core technologies, libraries, and security competencies utilized</p>
+                </div>
+
+                <!-- Interactive Skill Badges Container -->
+                <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-red-500/30 text-red-400 text-sm font-medium hover:border-red-500/80 transition cursor-default flex items-center gap-2">
+                        <i class="fa-solid fa-bug"></i> SQL Injection
+                    </span>
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-sky-500/30 text-sky-400 text-sm font-medium hover:border-sky-500/80 transition cursor-default flex items-center gap-2">
+                        <i class="fa-brands fa-python"></i> Python
+                    </span>
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-indigo-500/30 text-indigo-400 text-sm font-medium hover:border-indigo-500/80 transition cursor-default flex items-center gap-2">
+                        <i class="fa-solid fa-database"></i> Room Persistence
+                    </span>
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-emerald-500/30 text-emerald-400 text-sm font-medium hover:border-emerald-500/80 transition cursor-default flex items-center gap-2">
+                        <i class="fa-solid fa-network-wired"></i> Retrofit
+                    </span>
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-amber-500/30 text-amber-400 text-sm font-medium hover:border-amber-500/80 transition cursor-default flex items-center gap-2">
+                        <i class="fa-solid fa-fire"></i> Firebase Firestore
+                    </span>
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-purple-500/30 text-purple-400 text-sm font-medium hover:border-purple-500/80 transition cursor-default flex items-center gap-2">
+                        <i class="fa-solid fa-brain"></i> ML Kit
+                    </span>
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-teal-500/30 text-teal-400 text-sm font-medium hover:border-teal-500/80 transition cursor-default flex items-center gap-2">
+                        <i class="fa-solid fa-camera"></i> CameraX
+                    </span>
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-blue-500/30 text-blue-400 text-sm font-medium hover:border-blue-500/80 transition cursor-default flex items-center gap-2">
+                        <i class="fa-brands fa-android"></i> Android SDK
+                    </span>
+                    <span class="px-4 py-2 rounded-xl bg-gray-900 border border-pink-500/30 text-pink-400 text-sm font-medium hover:border-pink-500/80 transition cursor-default flex items-center gap-2">
+                        <i class="fa-solid fa-lock"></i> SSL Pinning
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources" class="py-16 bg-gray-950/50 border-t border-gray-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-white">Resources & Acknowledgements</h2>
+                    <p class="text-gray-400 text-sm mt-1">Libraries, external APIs, and artificial intelligence tools utilized in development</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Libraries & APIs Used -->
+                    <div class="glass-card rounded-2xl p-6">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-cubes text-sky-400"></i> Libraries & Frameworks
+                        </h3>
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-sky-400 mt-1 text-xs"></i>
+                                <span><strong>Android Jetpack & Room:</strong> Offline ORM database management and dynamic UI state lifecycle handling.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-sky-400 mt-1 text-xs"></i>
+                                <span><strong>Retrofit & OkHttp:</strong> Type-safe HTTP REST communication with network logging interceptors.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-sky-400 mt-1 text-xs"></i>
+                                <span><strong>Google ML Kit & CameraX:</strong> Hardware acceleration for real-time barcode scanning.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-sky-400 mt-1 text-xs"></i>
+                                <span><strong>Tailwind CSS & FontAwesome:</strong> Modern responsive presentation and UI icons.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- AI Assistance Acknowledgement -->
+                    <div class="glass-card rounded-2xl p-6">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-robot text-indigo-400"></i> AI Assistance Acknowledgement
+                        </h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            [RESOURCES & ACKNOWLEDGEMENT: Generative AI tools (including ChatGPT and Claude) were utilized as coding assistants for refactoring legacy code patterns, debugging complex layout structures, and reviewing vulnerability remediation strategies. All generated suggestions were rigorously audited, tested, and customized by our group to ensure absolute compliance with security standards and project requirements.]
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark-bg border-t border-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+                <div>
+                    <p class="text-sm text-gray-300 font-medium">
+                        Student e-Portfolio &copy; 2026
+                    </p>
+                    <p class="text-xs text-gray-500 mt-1">
+                        Developer: <span class="text-gray-400">[YOUR NAME]</span> | Matric: <span class="text-gray-400">[YOUR MATRIC]</span>
+                    </p>
+                </div>
+                <div class="flex items-center space-x-4 text-xs text-gray-400">
+                    <a href="#home" class="hover:text-white transition">Back to Top <i class="fa-solid fa-arrow-up text-xs ml-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Navigation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', function () {
+                    mobileMenu.classList.toggle('hidden');
+                });
+
+                // Auto close mobile menu on nav link click
+                const mobileLinks = mobileMenu.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
